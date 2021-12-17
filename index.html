@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Preview • Pico.css</title>
+    <meta name="description"
+          content="A starter example with all elements and components used in Pico design system. Built with Pico CSS.">
+    <link rel="shortcut icon" href="https://picocss.com/favicon.ico">
+    <link rel="canonical" href="https://picocss.com/examples/preview/">
+
+    <!-- Pico.css -->
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+
+</head>
+
+<body>
+
+<!-- Header -->
+<header class="container" style="padding-bottom: 0">
+    <hgroup>
+        <h1>HRM</h1>
+        <h2></h2>
+    </hgroup>
+    <nav>
+        <ul>
+            <li>Theme:</li>
+            <li><a href="#" data-theme-switcher="auto">Auto</a></li>
+            <li><a href="#" data-theme-switcher="light">Light</a></li>
+            <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+        </ul>
+    </nav>
+    <hr>
+</header><!-- ./ Header -->
+
+<!-- Main -->
+<main class="container" style="padding-top:0">
+    <section>
+        <form>
+            <h2>Time</h2>
+            <label for="date">Date </label>
+            <input type="date" id="date" name="date">
+
+            <label for="time">Time </label>
+            <input type="time" id="time" name="time">
+            <hr>
+
+            <h2>Location</h2>
+            <label for="address">Address </label>
+            <textarea id="address" name="address" rows="3"></textarea>
+
+            <div style="margin-bottom: 4px">Drop a pin</div>
+            <div style="margin-bottom: 16px; height: 400px">
+                <div id="map" style="height: 100%"></div>
+            </div>
+            <hr>
+
+            <h2>Specifications</h2>
+            <label for="yards">Yards</label>
+            <input type="number" step=".1" min="0" id="yards" name="yards">
+            <label for="psi">PSI</label>
+            <select id="psi" required>
+                <option value="" selected>3000 PSI</option>
+                <option value="" selected>4000 PSI</option>
+                <option value="" selected>5000 PSI</option>
+                <option value="" selected>6000 PSI</option>
+            </select>
+            <fieldset class="grid">
+                <label>Addons:</label>
+                <label for="fiber">
+                    <input type="checkbox" id="fiber" name="fiber">
+                    Fiber
+                </label>
+                <label for="wire">
+                    <input type="checkbox" id="wire" name="wire">
+                    Wire
+                </label>
+                <label for="poly">
+                    <input type="checkbox" id="poly" name="poly">
+                    Fiber
+                </label>
+            </fieldset>
+            <hr>
+            <h2>Finalize</h2>
+            <div class="grid">
+                <article style="margin-top: 0">
+                    <h6>Time</h6>
+                    <div>03/18/1998</div>
+                    <div>7:30 AM</div>
+                </article>
+                <article style="margin-top: 0">
+                    <h6>Location</h6>
+                    <div>3172 Friendship Church Road</div>
+                    <div>Lexington NC, 27295</div>
+                </article>
+                <article style="margin-top: 0">
+                    <h6>Specifications</h6>
+                    <div>22 Yards</div>
+                    <div>3000 PSI</div>
+                    <div>Add: Fiber</div>
+                </article>
+            </div>
+            <button class="outline">
+                Place Order
+            </button>
+        </form>
+
+    </section>
+
+
+</main><!-- ./ Main -->
+
+<!-- Footer -->
+<footer class="container">
+    <small>Built with <a href="https://picocss.com">Pico</a> • <a
+            href="https://github.com/picocss/examples/blob/master/preview/index.html">Source code</a></small>
+</footer><!-- ./ Footer -->
+
+<!-- Minimal theme switcher -->
+<script src="/js/minimal-theme-switcher.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC91G9WxAvCFcB2GiSP67c0ZiHEHxIdQZU&callback=initMap&v=weekly"
+        async></script>
+
+<script>
+    function initMap() {
+        const myLatlng = {lat: 35.882872814069735, lng: -80.36078646658241};
+        const map = new google.maps.Map(document.getElementById("map"), {
+            center: myLatlng,
+            zoom: 15,
+            styles: [
+                {elementType: "geometry", stylers: [{color: "#242f3e"}]},
+                {elementType: "labels.text.stroke", stylers: [{color: "#242f3e"}]},
+                {elementType: "labels.text.fill", stylers: [{color: "#746855"}]},
+                {
+                    featureType: "administrative.locality",
+                    elementType: "labels.text.fill",
+                    stylers: [{color: "#d59563"}],
+                },
+                {
+                    featureType: "poi",
+                    elementType: "labels.text.fill",
+                    stylers: [{color: "#d59563"}],
+                },
+                {
+                    featureType: "poi.park",
+                    elementType: "geometry",
+                    stylers: [{color: "#263c3f"}],
+                },
+                {
+                    featureType: "poi.park",
+                    elementType: "labels.text.fill",
+                    stylers: [{color: "#6b9a76"}],
+                },
+                {
+                    featureType: "road",
+                    elementType: "geometry",
+                    stylers: [{color: "#38414e"}],
+                },
+                {
+                    featureType: "road",
+                    elementType: "geometry.stroke",
+                    stylers: [{color: "#212a37"}],
+                },
+                {
+                    featureType: "road",
+                    elementType: "labels.text.fill",
+                    stylers: [{color: "#9ca5b3"}],
+                },
+                {
+                    featureType: "road.highway",
+                    elementType: "geometry",
+                    stylers: [{color: "#746855"}],
+                },
+                {
+                    featureType: "road.highway",
+                    elementType: "geometry.stroke",
+                    stylers: [{color: "#1f2835"}],
+                },
+                {
+                    featureType: "road.highway",
+                    elementType: "labels.text.fill",
+                    stylers: [{color: "#f3d19c"}],
+                },
+                {
+                    featureType: "transit",
+                    elementType: "geometry",
+                    stylers: [{color: "#2f3948"}],
+                },
+                {
+                    featureType: "transit.station",
+                    elementType: "labels.text.fill",
+                    stylers: [{color: "#d59563"}],
+                },
+                {
+                    featureType: "water",
+                    elementType: "geometry",
+                    stylers: [{color: "#11191f"}],
+                },
+                {
+                    featureType: "water",
+                    elementType: "labels.text.fill",
+                    stylers: [{color: "#515c6d"}],
+                },
+                {
+                    featureType: "water",
+                    elementType: "labels.text.stroke",
+                    stylers: [{color: "#17263c"}],
+                },
+            ],
+        });
+        // Create the initial InfoWindow.
+        let infoWindow = new google.maps.InfoWindow({
+            content: "Click the map to get Lat/Lng!",
+            position: myLatlng,
+        });
+
+        infoWindow.open(map);
+        // Configure the click listener.
+        map.addListener("click", (mapsMouseEvent) => {
+            // Close the current InfoWindow.
+            infoWindow.close();
+            // Create a new InfoWindow.
+            infoWindow = new google.maps.InfoWindow({
+                position: mapsMouseEvent.latLng,
+            });
+            infoWindow.setContent(
+                JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+            );
+            infoWindow.open(map);
+        });
+    }
+</script>
+
+</body>
+<style>
+    hr {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+</style>
+
+</html>
