@@ -20,17 +20,9 @@
 <!-- Header -->
 <header class="container" style="padding-bottom: 0">
     <hgroup>
-        <h1>HRM</h1>
-        <h2></h2>
+        <h1>Hartley Ready Mix</h1>
+        <h2>Configure your order below</h2>
     </hgroup>
-    <nav>
-        <ul>
-            <li>Theme:</li>
-            <li><a href="#" data-theme-switcher="auto">Auto</a></li>
-            <li><a href="#" data-theme-switcher="light">Light</a></li>
-            <li><a href="#" data-theme-switcher="dark">Dark</a></li>
-        </ul>
-    </nav>
     <hr>
 </header><!-- ./ Header -->
 
@@ -42,7 +34,7 @@
             <label for="date">Date </label>
             <input type="date" id="date" name="date">
 
-            <label for="time">Time </label>
+            <label for="time">Requested Time </label>
             <input type="time" id="time" name="time">
             <hr>
 
@@ -58,29 +50,78 @@
 
             <h2>Specifications</h2>
             <label for="yards">Yards</label>
-            <input type="number" step=".1" min="0" id="yards" name="yards">
+            <input type="number" step=".1" min="0" id="yards" name="yards"> <!-- todo: add + -->
+            <label for="spacing">Delivery Spacing (Minutes)</label>
+            <input type="number" step="1" min="0" id="spacing" name="spacing">
             <label for="psi">PSI</label>
             <select id="psi" required>
-                <option value="" selected>3000 PSI</option>
-                <option value="" selected>4000 PSI</option>
-                <option value="" selected>5000 PSI</option>
-                <option value="" selected>6000 PSI</option>
+                <option value="2500">2500 PSI</option>
+                <option value="3000">3000 PSI</option>
+                <option value="3500">3500 PSI</option>
+                <option value="4000">4000 PSI</option>
+                <option value="4500">4500 PSI</option>
+                <option value="5000">5000 PSI</option>
+                <option value="6000">6000 PSI</option>
             </select>
             <fieldset class="grid">
-                <label>Addons:</label>
+                <label>Mix addons</label>
+                <label for="front">
+                    <input type="checkbox" id="front" name="front">
+                    Front
+                </label>
+                <label for="hot_water">
+                    <input type="checkbox" id="hot_water" name="hot_water">
+                    Hot Water
+                </label>
+                <label for="air_entraining">
+                    <input type="checkbox" id="air_entraining" name="air_entraining">
+                    Air Entraining
+                </label>
                 <label for="fiber">
                     <input type="checkbox" id="fiber" name="fiber">
                     Fiber
                 </label>
-                <label for="wire">
-                    <input type="checkbox" id="wire" name="wire">
-                    Wire
+                <label for="calcium">
+                    <input type="checkbox" id="calcium" name="calcium">
+                    Calcium
                 </label>
-                <label for="poly">
-                    <input type="checkbox" id="poly" name="poly">
-                    Fiber
+                <label for="non_chloride_accelerator">
+                    <input type="checkbox" id="non_chloride_accelerator" name="non_chloride_accelerator">
+                    Non Chloride Accelerator
                 </label>
             </fieldset>
+
+            <fieldset class="grid">
+                <label>Truck addons</label>
+                <label for="poly">
+                    <input type="checkbox" id="poly" name="poly">
+                    Poly
+                </label>
+                <label for="sealer">
+                    <input type="checkbox" id="sealer" name="sealer">
+                    Sealer
+                </label>
+                <label for="expansion_joint">
+                    <input type="checkbox" id="expansion_joint" name="expansion_joint">
+                    Expansion Joint
+                </label>
+                <label for="keyway_and_stakes">
+                    <input type="checkbox" id="keyway_and_stakes" name="keyway_and_stakes">
+                    Keyway and Stakes
+                </label>
+                <label for="rebar_3">
+                    <input type="checkbox" id="rebar_3" name="rebar_3">
+                    Rebar #3
+                </label>
+                <label for="rebar_4">
+                    <input type="checkbox" id="rebar_4" name="rebar_4">
+                    Rebar #4
+                </label>
+            </fieldset>
+
+            <label for="notes">Notes</label>
+            <textarea id="notes" name="notes" rows="3"></textarea>
+
             <hr>
             <h2>Finalize</h2>
             <div class="grid">
@@ -113,12 +154,10 @@
 
 <!-- Footer -->
 <footer class="container">
-    <small>Built with <a href="https://picocss.com">Pico</a> • <a
-            href="https://github.com/picocss/examples/blob/master/preview/index.html">Source code</a></small>
+    <small>Built with <a href="https://picocss.com">Pico</a></small>
 </footer><!-- ./ Footer -->
 
 <!-- Minimal theme switcher -->
-<script src="/js/minimal-theme-switcher.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC91G9WxAvCFcB2GiSP67c0ZiHEHxIdQZU&callback=initMap&v=weekly"
