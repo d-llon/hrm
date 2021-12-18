@@ -27,20 +27,20 @@
 </header><!-- ./ Header -->
 
 <!-- Main -->
-<main class="container" style="padding-top:0">
+<main class="container" id="orderPage" style="padding-top:0">
     <section>
         <form>
             <h2>Time</h2>
-            <label for="date">Date </label>
-            <input type="date" id="date" name="date">
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" v-model="date">
 
             <label for="time">Requested Time </label>
-            <input type="time" id="time" name="time">
+            <input type="time" id="time" name="time" v-model="time">
             <hr>
 
             <h2>Location</h2>
             <label for="address">Address </label>
-            <textarea id="address" name="address" rows="3"></textarea>
+            <textarea id="address" name="address" rows="3" v-model="address"></textarea>
 
             <div style="margin-bottom: 4px">Drop a pin</div>
             <div style="margin-bottom: 16px; height: 400px">
@@ -50,11 +50,13 @@
 
             <h2>Specifications</h2>
             <label for="yards">Yards</label>
-            <input type="number" step=".1" min="0" id="yards" name="yards"> <!-- todo: add + -->
-            <label for="spacing">Delivery Spacing (Minutes)</label>
-            <input type="number" step="1" min="0" id="spacing" name="spacing">
+            <input type="number" step=".1" min="0" id="yards" name="yards" v-model="yards"> <!-- todo: add + -->
+            <template v-if="yards > 10">
+                <label for="spacing">Delivery Spacing (Minutes)</label>
+                <input type="number" step="1" min="0" id="spacing" name="spacing" v-model="deliverySpacing">
+            </template>
             <label for="psi">PSI</label>
-            <select id="psi" required>
+            <select id="psi" v-model="psi">
                 <option value="2500">2500 PSI</option>
                 <option value="3000">3000 PSI</option>
                 <option value="3500">3500 PSI</option>
@@ -63,85 +65,83 @@
                 <option value="5000">5000 PSI</option>
                 <option value="6000">6000 PSI</option>
             </select>
-            <fieldset class="grid">
-                <label>Mix addons</label>
-                <label for="front">
-                    <input type="checkbox" id="front" name="front">
-                    Front
-                </label>
-                <label for="hot_water">
-                    <input type="checkbox" id="hot_water" name="hot_water">
-                    Hot Water
-                </label>
-                <label for="air_entraining">
-                    <input type="checkbox" id="air_entraining" name="air_entraining">
-                    Air Entraining
-                </label>
-                <label for="fiber">
-                    <input type="checkbox" id="fiber" name="fiber">
-                    Fiber
-                </label>
-                <label for="calcium">
-                    <input type="checkbox" id="calcium" name="calcium">
-                    Calcium
-                </label>
-                <label for="non_chloride_accelerator">
-                    <input type="checkbox" id="non_chloride_accelerator" name="non_chloride_accelerator">
-                    Non Chloride Accelerator
-                </label>
-            </fieldset>
+            <div class="grid">
+                <div style="margin-bottom: 16px">
+                    <label>Mix addons:</label>
+                    <template v-for="(addon, code) in mixAddons">
+                        <label :for="code">
+                            <input type="checkbox" :id="code" :name="code" v-model="addon.value">
+                            {{addon.name}}
+                        </label>
+                    </template>
+                </div>
+                <div style="margin-bottom: 16px">
+                    <label>Truck addons:</label>
+                    <template v-for="(addon, code) in truckAddons">
+                        <label :for="code">
+                            <input type="checkbox" :id="code" :name="code" v-model="addon.value">
+                            {{addon.name}}
+                        </label>
+                        <input type="number" step="1" min="0" :code="code + '_quantity'" placeholder="Quantity"
+                               v-model="addon.quantity" v-if="addon.value">
+                    </template>
+                </div>
+            </div>
 
-            <fieldset class="grid">
-                <label>Truck addons</label>
-                <label for="poly">
-                    <input type="checkbox" id="poly" name="poly">
-                    Poly
-                </label>
-                <label for="sealer">
-                    <input type="checkbox" id="sealer" name="sealer">
-                    Sealer
-                </label>
-                <label for="expansion_joint">
-                    <input type="checkbox" id="expansion_joint" name="expansion_joint">
-                    Expansion Joint
-                </label>
-                <label for="keyway_and_stakes">
-                    <input type="checkbox" id="keyway_and_stakes" name="keyway_and_stakes">
-                    Keyway and Stakes
-                </label>
-                <label for="rebar_3">
-                    <input type="checkbox" id="rebar_3" name="rebar_3">
-                    Rebar #3
-                </label>
-                <label for="rebar_4">
-                    <input type="checkbox" id="rebar_4" name="rebar_4">
-                    Rebar #4
-                </label>
-            </fieldset>
 
             <label for="notes">Notes</label>
-            <textarea id="notes" name="notes" rows="3"></textarea>
+            <textarea id="notes" name="notes" rows="3" v-model="notes"></textarea>
 
             <hr>
             <h2>Finalize</h2>
             <div class="grid">
-                <article style="margin-top: 0">
-                    <h6>Time</h6>
-                    <div>03/18/1998</div>
-                    <div>7:30 AM</div>
+                <article style="margin-top: 0; margin-bottom: 20px;">
+                    <h6>Time</h6> <!-- todo: format -->
+                    <template v-if="date && time">
+                        <div>{{date}}</div>
+                        <div>{{time}}</div>
+                    </template>
                 </article>
-                <article style="margin-top: 0">
+                <article style="margin-top: 0;  margin-bottom: 20px;">
                     <h6>Location</h6>
-                    <div>3172 Friendship Church Road</div>
-                    <div>Lexington NC, 27295</div>
+                    <div>{{address}}</div>
                 </article>
-                <article style="margin-top: 0">
+                <article style="margin-top: 0;  margin-bottom: 20px;">
                     <h6>Specifications</h6>
-                    <div>22 Yards</div>
-                    <div>3000 PSI</div>
-                    <div>Add: Fiber</div>
+                    <template v-if="yards && psi">
+                        <div>{{yards}} yards</div>
+                        <div>{{deliverySpacing}} min. delivery spacing</div>
+                        <div>{{psi}} PSI</div>
+                        <div>Add: Fiber</div>
+                    </template>
                 </article>
             </div>
+
+            <article style="margin-top: 0">
+                <h6>Addons and Notes</h6>
+                <div class="grid">
+                    <div> <!-- todo: check if any addon is checked -->
+                        <label>Mix Addons:</label>
+                        <ul>
+                            <li v-for="addon in mixAddons" v-if="addon.value">
+                                {{addon.name}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div> <!-- todo: check if any addon is checked -->
+                        <label>Mix Addons:</label>
+                        <ul>
+                            <li v-for="addon in truckAddons" v-if="addon.value && addon.quantity">
+                                {{addon.quantity}}x {{addon.name}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <template v-if="notes">
+                    <label>Notes:</label>
+                    <div>{{notes}}</div>
+                </template>
+            </article>
             <button class="outline">
                 Place Order
             </button>
@@ -162,8 +162,39 @@
 <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC91G9WxAvCFcB2GiSP67c0ZiHEHxIdQZU&callback=initMap&v=weekly"
         async></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
 <script>
+    new Vue({
+        el: '#orderPage',
+        data: {
+            date: new Date().toISOString().split('T')[0],
+            time: null,
+
+            address: null,
+
+            yards: null,
+            deliverySpacing: null,
+            psi: null,
+            mixAddons: {
+                front: {'name': 'Front', 'value': false},
+                hotWater: {'name': 'Hot Water', 'value': false},
+                airEntraining: {'name': 'Air Entraining', 'value': false},
+                calcium: {'name': 'Calcium', 'value': false}, // todo: needs %
+                nonChlorideAccelerator: {'name': 'Non Chloride Accelerator', 'value': false},
+            },
+            truckAddons: {
+                poly: {'name': 'Poly', 'value': false, 'quantity': null},
+                sealer: {'name': 'Sealer', 'value': false, 'quantity': null},
+                expansionJoint: {'name': 'Expansion Joint', 'value': false, 'quantity': null},
+                keywayAndStakes: {'name': 'Keyway and Stakes', 'value': false, 'quantity': null},
+                rebar3: {'name': 'Rebar #3', 'value': false, 'quantity': null},
+                rebar4: {'name': 'Rebar #4', 'value': false, 'quantity': null}
+            },
+            notes: null
+        },
+    })
+
     function initMap() {
         const myLatlng = {lat: 35.882872814069735, lng: -80.36078646658241};
         const map = new google.maps.Map(document.getElementById("map"), {
