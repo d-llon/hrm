@@ -32,15 +32,15 @@
         <form>
             <h2>Time</h2>
             <label for="date">Date</label>
-            <input type="date" id="date" name="date" v-model="date">
+            <input type="date" id="date" name="date" required v-model="date">
 
             <label for="time">Requested Time </label>
-            <input type="time" id="time" name="time" v-model="time">
+            <input type="time" id="time" name="time" required v-model="time">
             <hr>
 
             <h2>Location</h2>
             <label for="address">Address </label>
-            <textarea id="address" name="address" rows="3" v-model="address"></textarea>
+            <textarea id="address" name="address" rows="3" required v-model="address"></textarea>
 
             <div style="margin-bottom: 4px">Drop a pin</div>
             <div style="margin-bottom: 16px; height: 400px">
@@ -50,13 +50,14 @@
 
             <h2>Specifications</h2>
             <label for="yards">Yards</label>
-            <input type="number" step=".1" min="0" id="yards" name="yards" v-model="yards"> <!-- todo: add + -->
+            <input type="number" step=".1" min="0" id="yards" name="yards" required v-model="yards">
+            <!-- todo: add + -->
             <template v-if="yards > 10">
                 <label for="spacing">Delivery Spacing (Minutes)</label>
-                <input type="number" step="1" min="0" id="spacing" name="spacing" v-model="deliverySpacing">
+                <input type="number" step="1" min="0" id="spacing" name="spacing" required v-model="deliverySpacing">
             </template>
             <label for="psi">PSI</label>
-            <select id="psi" v-model="psi">
+            <select id="psi" required v-model="psi">
                 <option value="2500">2500 PSI</option>
                 <option value="3000">3000 PSI</option>
                 <option value="3500">3500 PSI</option>
@@ -65,6 +66,7 @@
                 <option value="5000">5000 PSI</option>
                 <option value="6000">6000 PSI</option>
             </select>
+
             <div class="grid">
                 <div style="margin-bottom: 16px">
                     <label>Mix addons:</label>
@@ -87,7 +89,6 @@
                     </template>
                 </div>
             </div>
-
 
             <label for="notes">Notes</label>
             <textarea id="notes" name="notes" rows="3" v-model="notes"></textarea>
